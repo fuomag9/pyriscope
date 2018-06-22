@@ -39,7 +39,7 @@ DEFAULT_DL_THREADS = 6
 FFMPEG_NOROT = "ffmpeg -y -v error -i \"{0}.ts\" -bsf:a aac_adtstoasc -codec copy \"{0}.mp4\""
 FFMPEG_ROT ="ffmpeg -y -v error -i \"{0}.ts\" -bsf:a aac_adtstoasc -acodec copy -vf \"transpose=2\" -crf 30 \"{0}.mp4\""
 FFMPEG_LIVE = "ffmpeg -y -v error -headers \"Referer:{}; User-Agent:{}\" -i \"{}\" -c copy{} \"{}.ts\""
-URL_PATTERN = re.compile(r'(http://|https://|)(www.|)(periscope.tv|perisearch.net)/(w|\S+)/(\S+)')
+URL_PATTERN = re.compile(r'(http://|https://|)(www.|)(periscope.tv|pscp.tv|perisearch.net)/(w|\S+)/(\S+)')
 REPLAY_URL = "https://{}/{}/{}"
 REPLAY_PATTERN = re.compile(r'https://(\S*).periscope.tv/(\S*)/(\S*)')
 
@@ -453,12 +453,13 @@ def process(args):
 
 
             cookiestr = ""
-            cookielist = access_public['cookies']
-            for cookie in cookielist:
-                cookiestr = cookiestr + "{}={};".format(cookie['Name'], cookie['Value'])
+            if 'cookies' in access_public:
+                cookielist = access_public['cookies']
+                for cookie in cookielist:
+                    cookiestr = cookiestr + "{}={};".format(cookie['Name'], cookie['Value'])
 
-            #req_headers['Cookie'] = "{}={};{}={}".format(access_public['cookies'][0]['Name'], access_public['cookies'][0]['Value'], access_public['cookies'][1]['Name'], access_public['cookies'][1]['Value'])
-            req_headers['Cookie'] = cookiestr
+                #req_headers['Cookie'] = "{}={};{}={}".format(access_public['cookies'][0]['Name'], access_public['cookies'][0]['Value'], access_public['cookies'][1]['Name'], access_public['cookies'][1]['Value'])
+                req_headers['Cookie'] = cookiestr
 
             from urllib.parse import urlparse
             host = urlparse(base_url).netloc
@@ -468,7 +469,7 @@ def process(args):
             stdout("Downloading chunk list.")
             response = requests.get(base_url, headers=req_headers)
             chunks = response.text
-            chunk_pattern = re.compile(r'chunk_\d+\.ts')
+            chunk_pattern = re.compile(r'chunk(?:_(?:\d+|[a-zA-Z]))+\.ts')
             print("\n")
             print(response.status_code)
             print("\n")
