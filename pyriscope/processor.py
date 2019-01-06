@@ -39,9 +39,9 @@ DEFAULT_DL_THREADS = 6
 FFMPEG_NOROT = "ffmpeg -y -v error -i \"{0}.ts\" -bsf:a aac_adtstoasc -codec copy \"{0}.mp4\""
 FFMPEG_ROT ="ffmpeg -y -v error -i \"{0}.ts\" -bsf:a aac_adtstoasc -acodec copy -vf \"transpose=2\" -crf 30 \"{0}.mp4\""
 FFMPEG_LIVE = "ffmpeg -y -v error -headers \"Referer:{}; User-Agent:{}\" -i \"{}\" -c copy{} \"{}.ts\""
-URL_PATTERN = re.compile(r'(http://|https://|)(www.|)(periscope.tv|perisearch.net)/(w|\S+)/(\S+)')
+URL_PATTERN = re.compile(r'(http://|https://|)(www.|)(periscope.tv|perisearch.net|pscp.tv)/(w|\S+)/(\S+)')
 REPLAY_URL = "https://{}/{}/{}"
-REPLAY_PATTERN = re.compile(r'https://(\S*).periscope.tv/(\S*)/(\S*)')
+REPLAY_PATTERN = re.compile(r'https://(\S*).(periscope.tv|pscp.tv)/(\S*)/(\S*)')
 
 # Classes.
 class ReplayDeleted(Exception):
@@ -137,6 +137,7 @@ Usage:
 
 url accepted forms:
     https://www.periscope.tv/w/1LyxBeXmWObJN
+    https://pscp.tv/w/1LyxBeXmWObJN
     https://www.periscope.tv/w/aM1wNjE1ODAxMHwxcm14UGF2UkxOREtOGeN8ChyFlAXW4ihB_3NA9h3UysetWhz5G8WQdi7dsro=
     https://www.periscope.tv/Flad_Land/1zqJVmdaBvXGB
     http://www.perisearch.net/w/aM7_kzIzMjk1NTJ8MU1ZR05iWkFhUnZHd2_M8lSATtJLmbT0wvem7Ml6TTJgRS4_ReuSeQNGN73z
