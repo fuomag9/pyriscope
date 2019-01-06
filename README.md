@@ -53,6 +53,8 @@ url accepted forms:
     https://www.periscope.tv/Flad_Land/1zqJVmdaBvXGB
 
     http://www.perisearch.net/w/aM7_kzIzMjk1NTJ8MU1ZR05iWkFhUnZHd2_M8lSATtJLmbT0wvem7Ml6TTJgRS4_ReuSeQNGN73z
+    
+    https://www.pscp.tv/w/1djxXOEvmnVJZ
 
 
 options:
