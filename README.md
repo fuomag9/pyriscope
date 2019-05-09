@@ -29,13 +29,7 @@ Also [sooqua] for keeping up to date with changes Periscope's end.
 ### Installation
 
 ```sh
-$ pip install pyriscope
-```
-
-If Pyriscope is already installed, upgrade to the latest version with:
-
-```sh
-$ pip install pyriscope --upgrade
+$ python setup.py install
 ```
 
 ### Usage
